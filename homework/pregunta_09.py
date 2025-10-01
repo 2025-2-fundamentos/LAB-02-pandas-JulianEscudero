@@ -5,6 +5,8 @@ datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y
 librerias de pandas para resolver las preguntas.
 """
 
+import pathlib
+import pandas as pd
 
 def pregunta_09():
     """
@@ -23,3 +25,12 @@ def pregunta_09():
     39  39  E   5  1998-01-26  1998
 
     """
+    current_dir = pathlib.Path(__file__).parent
+    path = current_dir.parent / "files" / "input" / "tbl0.tsv"
+    tbl0 = pd.read_csv(path, sep="\t")
+
+    # Extraer los primeros 4 caracteres de la fecha (el año)
+    tbl0["year"] = tbl0["c3"].str[:4].astype(str)
+    return tbl0
+
+print(pregunta_09())

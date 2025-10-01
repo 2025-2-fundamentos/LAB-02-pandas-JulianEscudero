@@ -5,6 +5,8 @@ datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y
 librerias de pandas para resolver las preguntas.
 """
 
+import pathlib
+import pandas as pd
 
 def pregunta_11():
     """
@@ -22,3 +24,7 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
+    current_dir = pathlib.Path(__file__).parent
+    path = current_dir.parent / "files" / "input" / "tbl1.tsv"
+    tbl1 = pd.read_csv(path, sep="\t")
+    return tbl1.groupby("c0")["c4"].apply(lambda x: ",".join(sorted(x))).reset_index()
